@@ -55,10 +55,14 @@ const HomePage = (props: Props) => {
   useEffect(() => {
     setData(props.products)
   }, [props])
+  function handleClick(e) {
+    console.log('click', e);
+  }
   return (
     <div className="appHeader">
       <Menu
         className="appMenu"
+        onClick={handleClick}
         mode="horizontal"
         items={[
           {
@@ -66,41 +70,19 @@ const HomePage = (props: Props) => {
             key: "",
           },
           {
-            label: "Home",
+            label: <Link to="/">Home</Link>,
             key: "home",
           },
           {
-            label: "Product",
-            key: "product",
-            children: [
-              {
-                label: "Women's Dresses",
-                key: "womens-dresses",
-              },
-              {
-                label: "Women's Shoes",
-                key: "womens-shoes",
-              },
-              {
-                label: "Women's Watches",
-                key: "womens-watches",
-              },
-              {
-                label: "Women's Bags",
-                key: "womens-bags",
-              },
-              {
-                label: "Women's Jewellery",
-                key: "womens-jewellery",
-              },
-            ],
-          },
-          {
-            label: "About",
+            label: <Link to="/">About</Link>,
             key: "about",
           },
           {
-            label: "Contact",
+            label: <Link to="/products">Product</Link>,
+            key: "produtc",
+          },
+          {
+            label: <Link to="/">Contact</Link>,
             key: "contact",
           }
         ]}
