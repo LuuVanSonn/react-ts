@@ -1,72 +1,62 @@
-import React, { useState } from 'react';
-import { Form, Input, Button, Checkbox } from 'antd';
+import { Form, Input, Button, message } from 'antd';
+import { UserOutlined, LockOutlined } from '@ant-design/icons';
+import { useNavigate } from 'react-router-dom';
 
-const LoginForm = () => {
-  const [form] = Form.useForm();
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [remember, setRemember] = useState(false);
+interface ILogin {
+  email: string;
+  password: string;
+}
 
-  const handleSubmit = () => {
-    // Do something with the form data
+const Login = () => {
+  const navigate = useNavigate();
+
+  const onFinish = async (values: ILogin) => {
+    const res = await fetch('http://localhost:3000/users');
+    const data = await res.json();
+
+    const user = data.find(
+      (user: { email: string; password: string }) =>
+        user.email === values.email && user.password === values.password
+    );
+
+    if (user) {
+      localStorage.setItem('user', JSON.stringify(user));
+      message.success('Đăng nhập thành công');
+      navigate('/admin/products');
+    } else {
+      message.error('Đăng nhập thất bại');
+    }
   };
 
   return (
-    <Form
-      form={form}
-      name="login"
-      onFinish={handleSubmit}
-      initialValues={{
-        remember: true,
-      }}
-    >
-      <Form.Item
-        name="email"
-        label="E-mail"
-        rules={[
-          {
-            type: 'email',
-            message: 'The input is not valid E-mail!',
-          },
-          {
-            required: true,
-            message: 'Please input your E-mail!',
-          },
-        ]}
-      >
-        <Input value={email} onChange={(e) => setEmail(e.target.value)} />
-      </Form.Item>
-
-      <Form.Item
-        name="password"
-        label="Password"
-        rules={[
-          {
-            required: true,
-            message: 'Please input your password!',
-          },
-        ]}
-        hasFeedback
-      >
-        <Input.Password
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-      </Form.Item>
-
-      <Form.Item name="remember" valuePropName="checked">
-        <Checkbox checked={remember} onChange={(e) => setRemember(e.target.checked)}>
-          Remember me
-        </Checkbox>
-      </Form.Item>
-
-      <Form.Item>
-        <Button type="primary" htmlType="submit">
-          Log in
-        </Button>
-      </Form.Item>
-    </Form>
+    <div style={{ margin: 'auto', maxWidth: '400px' }}>
+      <h1>Login</h1>
+      <Form name="normal_login" className="login-form" onFinish={onFinish}>
+        <Form.Item
+          name="email"
+          rules={[{ required: true, message: 'Please input your Email!' }]}
+        >
+          <Input prefix={<UserOutlined className="site-form-item-icon" />} placeholder="Email" />
+        </Form.Item>
+        <Form.Item
+          name="password"
+          rules={[{ required: true, message: 'Please input your Password!' }]}
+        >
+          <Input.Password
+            prefix={<LockOutlined className="site-form-item-icon" />}
+            type="password"
+            placeholder="Password"
+          />
+        </Form.Item>
+        <Form.Item>
+          <Button type="primary" htmlType="submit" className="login-form-button">
+            Log in
+          </Button>
+          Or <a href="/admin/register">register now!</a>
+        </Form.Item>
+      </Form>
+    </div>
   );
 };
 
-export default LoginForm;
+export default Login;

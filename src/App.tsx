@@ -13,6 +13,7 @@ import ProductManagementPage from './pages/admin/ProductManagement'
 import UpdateProductPage from './pages/admin/UpdateProduct'
 import DashboardPage from './pages/admin/Dashboard'
 import RegisterForm from './pages/admin/RegisterForm'
+import LoginForm from './pages/admin/LoginForm'
 
 
 function App() {
@@ -33,16 +34,17 @@ function App() {
     <div className="App">
       <Routes>
         <Route path='/'>
-          <Route index element={<HomePage />} />
-          <Route path='RegisterForm' element={<RegisterForm  />} />
+          <Route index element={<HomePage products={products}/>} />
           <Route path='products' >
             <Route index element={<ProductPage products={products} onRemove={onHandleRemove} />} />
             <Route path=':id' element={<ProductDetailPage products={products} />} />
           </Route>
         </Route>
         <Route path='/admin'>
-        <Route index element={<DashboardPage />} />
-          <Route path='products'>
+          <Route index element={<LoginForm />} />
+          <Route path='register' element={<RegisterForm />} />
+          <Route path='DashboardPage' element={<DashboardPage />} />
+        <Route path='products'>
             <Route index element={<ProductManagementPage products={products} onRemove={onHandleRemove} />} />
             <Route path='add' element={<AddProductPage onAdd={onHandleAdd} />} />
             <Route path=':id/update' element={<UpdateProductPage onUpdate={onHandleUpdate}  products={products} />} />
