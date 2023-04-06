@@ -12,27 +12,29 @@ import AddProductPage from './pages/admin/AddProduct'
 import ProductManagementPage from './pages/admin/ProductManagement'
 import UpdateProductPage from './pages/admin/UpdateProduct'
 import DashboardPage from './pages/admin/Dashboard'
+import RegisterForm from './pages/admin/RegisterForm'
 
 
 function App() {
-  const [products, setProduct] = useState<IProduct[]>([])
+  const [products, setProducts] = useState<IProduct[]>([])
   useEffect(() => {
-    getAllProduct().then(({ data }) => setProduct(data))
+    getAllProduct().then(({ data }) => setProducts(data))
   }, [])
   const onHandleRemove = (id: number) => {
-    deleteProduct(id)
+    deleteProduct(id).then(() => setProducts(products.filter((item: IProduct) => item.id !== id)))
   }
-  const onHandleAdd = (product) => {
-    addProduct(product)
+  const onHandleAdd = (product: IProduct) => {
+    addProduct(product).then(() => getAllProduct().then(({ data }) => setProducts(data)))
   }
-  const onHandleUpdate = (product) => {
-    updateProduct(product)
+  const onHandleUpdate = (product: IProduct) => {
+    updateProduct(product).then(() => getAllProduct().then(({ data }) => setProducts(data)))
   }
   return (
     <div className="App">
       <Routes>
         <Route path='/'>
           <Route index element={<HomePage />} />
+          <Route path='RegisterForm' element={<RegisterForm  />} />
           <Route path='products' >
             <Route index element={<ProductPage products={products} onRemove={onHandleRemove} />} />
             <Route path=':id' element={<ProductDetailPage products={products} />} />
