@@ -5,7 +5,7 @@ import {
 } from "antd";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Card, Col, Row } from 'antd';
+import { Card, Col, Row,Space } from 'antd';
 import { List } from 'antd';
 import { Divider } from 'antd';
 import { Steps } from 'antd';
@@ -84,6 +84,10 @@ const HomePage = (props: Props) => {
           {
             label: <Link to="/">Contact</Link>,
             key: "contact",
+          },
+          {
+            label: <Link to="/admin">Sign</Link>,
+            key: "sign",
           }
         ]}
       />
@@ -96,7 +100,7 @@ const HomePage = (props: Props) => {
             />
     </div>
 
-    <div className="" style={{ margin: '60px 16px 60px' }}>
+    {/* <div className="" style={{ margin: '60px 16px 60px' }}>
         <>
           <Divider>Text Lorem ipsum dolor sit amet</Divider>
           <p>
@@ -108,12 +112,12 @@ const HomePage = (props: Props) => {
           </p>
           
         </>
-    </div> 
+    </div>  */}
 
     <div className="site-layout-content">
-            <div style={{ padding: "20px", margin: "100px",textAlign:"center" }}>
-            <Divider style={{fontSize:"25px"}}>Sản Phẩm Mới</Divider>
-            <Divider style={{fontSize:"16px"}}>Sản phẩm mới, ý tưởng mới, phong cách mới, vẻ đẹp mới</Divider>
+            <div style={{ padding: "15px", margin: "100px",textAlign:"center",marginTop:"30px" }}>
+            <Divider style={{fontSize:"40px"}}>New Arrivals</Divider>
+            <Divider style={{fontSize:"18px",marginBottom:"60px"}}>But I must explain to you how all this mistaken idea</Divider>
               <Row gutter={[16, 16]}>
                 {data.map((item) => (
                   <Col key={item.id} span={6}>
@@ -133,7 +137,23 @@ const HomePage = (props: Props) => {
             </div>
     </div>
 
-    <div className="" style={{margin:'10px 0px',textAlign:"center",border:"2px"}}>
+  
+    <div className="site-layout-content" style={{margin:'100px 100px 100px 0px',textAlign:"center",}}>
+    <Row>
+      <Col span={12}>
+        <h1 style={{fontSize:"29px",}}>Contrary to popular belief is simply rand.</h1>
+        <h2 style={{fontSize:"18px",marginBottom:"70px"}}>Professor at Hamp deny dney College.</h2>
+        <Space wrap>
+        <Button style={{padding:"0 36px"}} type="primary" danger>Read More</Button>
+        </Space>
+      </Col>
+      <Col span={12}>
+        <img width={560} height={211} src="" alt="" />
+      </Col>
+    </Row>
+    </div>
+
+    {/* <div className="" style={{margin:'10px 0px',textAlign:"center",border:"2px"}}>
       <Divider style={{fontSize:"16px"}}>Những sản phẩm hàng đầu của cửa hàng</Divider>
     <>
       <Row>
@@ -161,7 +181,7 @@ const HomePage = (props: Props) => {
         
       </Row>
     </>
-    </div>
+    </div> */}
 
     {/* <div className="" style={{ margin: '24px 16px 0' }}>
             <>
@@ -194,6 +214,39 @@ const HomePage = (props: Props) => {
                 ))}
               </Row>
             </div>
+    </div>
+
+    <div className="footer" style={{ marginLeft:"100px" }}>
+    <Row>
+      <Col span={6}>
+        <h2>ABOUT US</h2>
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim</p>
+      </Col>
+      <Col span={6}>
+        <h2>INFORMATION</h2>
+        <p>About us</p>
+        <p>Delivery Information</p>
+        <p>Terms & Condition</p>
+        <p>Privacy & Policy</p>
+        <p>Manufactures</p>
+      </Col>
+      <Col span={6}>
+        <h2>MY ACCOUNT</h2>
+        <p>My Cart</p>
+        <p>Login</p>
+        <p>Wishlist</p>
+        <p>Checkout</p>
+      </Col>
+      <Col span={6}>
+        <h2>OUR SERVICE</h2>
+        <p>My Account</p>
+        <p>My Cart</p>
+        <p>Login</p>
+        <p>Wishlist</p>
+        <p>Checkout</p>
+
+      </Col>
+    </Row>
     </div>
 
     </div>
