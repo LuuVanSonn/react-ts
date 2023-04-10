@@ -84,6 +84,10 @@ const ProductPage = (props: Props) => {
           {
             label: <Link to="/">Contact</Link>,
             key: "contact",
+          },
+          {
+            label: <Link to="/admin">Sign</Link>,
+            key: "sign",
           }
         ]}
       />
@@ -96,18 +100,78 @@ const ProductPage = (props: Props) => {
             />
     </div>
 
-   <div className="">
+   <div className="" style={{margin:'10px 0px 100px',textAlign:"center"}}>
    <Row>
     <Col span={18} push={6}>
-      col-18 col-push-6
+    <div style={{ padding: "5px",textAlign:"center" }}>
+            <Divider style={{fontSize:"25px"}}>Sản Phẩm Mới</Divider>
+              <Row gutter={[14, 14]}>
+                {data.map((item) => (
+                  <Col key={item.id} span={6}>
+                    <Card
+                      hoverable
+                      style={{ width: 190 }}
+                      cover={<Image src={item.image} width={140} height={100} />}
+                    >
+                      <Card.Meta title={item.name} description={<span style={{ color: 'red', justifyItems: "center", marginTop: "10px", }}>{item.price} ₫</span>} />
+                      <Link to={`/products/${item.id}`}>
+                        <Button style={{marginTop:"10px",}}>Chi tiết</Button>
+                      </Link>
+                    </Card>
+                  </Col>
+                ))}
+              </Row>
+            </div>
     </Col>
     <Col span={6} pull={18}>
-      col-6 col-pull-18
+          <h2>CATEGORIES</h2>
+          <p>Clothing</p>
+          <p>Bags</p>
+          <p>Shoes</p>
+          <p>Jewelry</p>
+          <p>Accessories</p>
+          <p>Food / Drink Store</p>
+          <p>Gift Store</p>
+          <p>Accessories</p>
+          <p>Watch</p>
+          <p>Other</p>
+
     </Col>
   </Row>
    </div>
     
+    <div className="footer" style={{ marginLeft:"100px" }}>
+      <Row>
+        <Col span={6}>
+          <h2>ABOUT US</h2>
+          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim</p>
+        </Col>
+        <Col span={6}>
+          <h2>INFORMATION</h2>
+          <p>About us</p>
+          <p>Delivery Information</p>
+          <p>Terms & Condition</p>
+          <p>Privacy & Policy</p>
+          <p>Manufactures</p>
+        </Col>
+        <Col span={6}>
+          <h2>MY ACCOUNT</h2>
+          <p>My Cart</p>
+          <p>Login</p>
+          <p>Wishlist</p>
+          <p>Checkout</p>
+        </Col>
+        <Col span={6}>
+          <h2>OUR SERVICE</h2>
+          <p>My Account</p>
+          <p>My Cart</p>
+          <p>Login</p>
+          <p>Wishlist</p>
+          <p>Checkout</p>
 
+        </Col>
+      </Row>
+      </div>
     </div>
   );
 }

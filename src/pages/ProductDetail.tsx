@@ -9,8 +9,8 @@ import { Card, Col, Row } from 'antd';
 import { List } from 'antd';
 import { Divider } from 'antd';
 import { Steps } from 'antd';
+import { useParams } from 'react-router-dom'
 import { Image } from 'antd';
-const { Header, Content, Footer } = Layout;
 import { Link } from "react-router-dom";
 import { IProduct } from "../types/product";
 const { Item } = Menu;
@@ -48,13 +48,15 @@ const data = [
     title: 'Title 4',
   },
 ];
-const ProductPage = (props: Props) => {
+const ProductDetailPage = (props) => {
   
-  const [data, setData] = useState<IProduct[]>([])
-
-  useEffect(() => {
-    setData(props.products)
-  }, [props])
+  const { id } = useParams()
+    const [product, setProduct] = useState({})
+    useEffect(() => {
+        const currentProduct = props.products.find(item => item.id === Number(id))
+        setProduct(currentProduct)
+        
+    })
   function handleClick(e) {
     console.log('click', e);
   }
@@ -84,6 +86,10 @@ const ProductPage = (props: Props) => {
           {
             label: <Link to="/">Contact</Link>,
             key: "contact",
+          },
+          {
+            label: <Link to="/admin">Sign</Link>,
+            key: "sign",
           }
         ]}
       />
@@ -96,20 +102,54 @@ const ProductPage = (props: Props) => {
             />
     </div>
 
-   <div className="">
-   <Row>
-    <Col span={18} push={6}>
-      col-18 col-push-6
-    </Col>
-    <Col span={6} pull={18}>
-      col-6 col-pull-18
-    </Col>
-  </Row>
-   </div>
+    <div className="" style={{margin:'10px 0px 100px',textAlign:"center"}}>
+        <Row>
+          <Col span={12}>
+            <img width={510} height={677} src={product?.image} alt={product?.name} />
+          </Col>
+          <Col span={12}>
+            <h2>{product?.name}</h2>
+            <p>Model: MNG001</p>
+            <p>{product?.price}</p>
+            <p>{product?.description}</p>
+          </Col>
+        </Row>
+    </div>
     
+    <div className="footer" style={{ marginLeft:"100px" }}>
+      <Row>
+        <Col span={6}>
+          <h2>ABOUT US</h2>
+          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim</p>
+        </Col>
+        <Col span={6}>
+          <h2>INFORMATION</h2>
+          <p>About us</p>
+          <p>Delivery Information</p>
+          <p>Terms & Condition</p>
+          <p>Privacy & Policy</p>
+          <p>Manufactures</p>
+        </Col>
+        <Col span={6}>
+          <h2>MY ACCOUNT</h2>
+          <p>My Cart</p>
+          <p>Login</p>
+          <p>Wishlist</p>
+          <p>Checkout</p>
+        </Col>
+        <Col span={6}>
+          <h2>OUR SERVICE</h2>
+          <p>My Account</p>
+          <p>My Cart</p>
+          <p>Login</p>
+          <p>Wishlist</p>
+          <p>Checkout</p>
 
+        </Col>
+      </Row>
+      </div>
     </div>
   );
 }
 
-export default ProductPage;
+export default ProductDetailPage;
