@@ -15,22 +15,50 @@ import DashboardPage from './pages/admin/Dashboard'
 import RegisterForm from './pages/admin/RegisterForm'
 import LoginForm from './pages/admin/LoginForm'
 import AddCategory from './pages/admin/Category'
-
+import { useNavigate } from 'react-router-dom'
 
 function App() {
+  const navigate =useNavigate()
   const [products, setProducts] = useState<IProduct[]>([])
   useEffect(() => {
-    getAllProduct().then(({ data }) => setProducts(data))
+    getAllProduct().then(({ data }) => setProducts(data.products.docs))
   }, [])
+  // console.log(products);
+  // return 
   const onHandleRemove = (id: number) => {
-    deleteProduct(id).then(() => setProducts(products.filter((item: IProduct) => item.id !== id)))
-  }
+    deleteProduct(id)
+      .then(() => {
+        const newProducts = products.filter((product) => product._id !== id);
+        setProducts(newProducts);
+      })
+      .catch((err) => {
+        console.log('Error deleting product:', err);
+      });
+  };
   const onHandleAdd = (product: IProduct) => {
-    addProduct(product).then(() => getAllProduct().then(({ data }) => setProducts(data)))
-  }
+    addProduct(product)
+      .then(() => {
+        getAllProduct().then(({ data }) => setProducts(data.products.docs));
+        alert("thêm thành công")
+        navigate("/admin/products")
+      })
+    
+      
+      .catch((err) => {
+        console.log('Error adding product:', err);
+      });
+  };
   const onHandleUpdate = (product: IProduct) => {
-    updateProduct(product).then(() => getAllProduct().then(({ data }) => setProducts(data)))
-  }
+    updateProduct(product)
+      .then(() => {
+        getAllProduct().then(({ data }) => setProducts(data.products.docs));
+        alert("Cập nhật thành công")
+        navigate("/admin/products")
+      })
+      .catch((err) => {
+        console.log('Error updating product:', err);
+      });
+  };
   return (
     <div className="App">
       <Routes>
@@ -47,7 +75,7 @@ function App() {
           <Route path='dash' element={<DashboardPage />} />
           <Route path='category' element={<AddCategory />} />
         <Route path='products'>
-            <Route index element={<ProductManagementPage products={products} onRemove={onHandleRemove} />} />
+            <Route index element={<ProductManagementPage products={products} onRemove={onHandleRemove}  />} />
             <Route path='add' element={<AddProductPage onAdd={onHandleAdd} />} />
             <Route path=':id/update' element={<UpdateProductPage onUpdate={onHandleUpdate}  products={products} />} />
           </Route>

@@ -7,14 +7,12 @@ import { Checkbox, Form, Input } from 'antd';
 import { Upload } from 'antd';
 import { useNavigate, useParams } from 'react-router-dom'
 import { IProduct } from '../../types/product'
+import { getOneProduct } from "../../api/product";
 
 
 const { Header, Content, Footer, Sider } = Layout;
 
-interface IProps {
-    products: IProduct[],
-    onUpdate: (product: IProduct) => void
-}
+
 const UpdateProductPage = (props:any) => {
   const {
     token: { colorBgContainer },
@@ -24,32 +22,26 @@ const UpdateProductPage = (props:any) => {
     const navigate = useNavigate()
 
     const [product, setProduct] = useState<IProduct>() 
-    useEffect(() => { 
-        const currentProduct = props.products.find((product: IProduct) => product.id == Number(id))
-        
-        setProduct(currentProduct) 
-    }, [props])
-    useEffect(() => { 
-        setFields() 
-    }, [product])
+    useEffect(() => {
+      getOneProduct(id).then(({data}) => setProduct(data.product));
+    }, [])
     const [form] = Form.useForm();
-    
-    
 
-    const setFields = () => {
+
         form.setFieldsValue({ 
-            id: product?.id,
+            id: product?._id,
             name: product?.name,
             price: product?.price,
             image: product?.image,
             description: product?.description,
             categoryId: product?.categoryId
         })
-    }
 
     const onFinish = (values: any) => {
+      // console.log(values);
+      
         props.onUpdate(values);
-        navigate('/admin/products')
+        // navigate('/admin/products')
     };
   return (
     <Layout>
@@ -89,7 +81,7 @@ const UpdateProductPage = (props:any) => {
               <div style={{ padding: 24, minHeight: 360, background: colorBgContainer, }}>
                     <Form form={form} style={{ maxWidth: 600,}} onFinish={onFinish} >
                         <Form.Item
-                            label=""
+                            label="id"
                             name="id"
                             style={{ display: 'none' }} 
                             rules={[{ required: true, message: 'Please input your username!' }]}
@@ -115,15 +107,12 @@ const UpdateProductPage = (props:any) => {
                         </Form.Item>
 
                         <Form.Item
-                        
-                            label="Image"
-                            name="image"
-                            rules={[{ required: true, message: 'Bạn chưa thêm ảnh sản phẩm!!' }]}
-                        >
-                            <Upload {...props}>
-                                <Button icon={<UploadOutlined />}>Upload</Button>
-                            </Upload>
-                        </Form.Item>
+                        label="image"
+                        name="image"
+                        rules={[{ required: true, message: 'Bạn chưa nhập image sản phẩm!!' }]}
+                    >
+                        <Input />
+                    </Form.Item>
 
                     <Form.Item
                         label="Description"

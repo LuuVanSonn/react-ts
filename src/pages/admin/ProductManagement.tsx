@@ -13,51 +13,19 @@ import { useParams } from 'react-router-dom';
 
 type Props = {
     products: IProduct[];
-    onRemove: (id: string) => void;
+    onRemove: (id: string| number) => void;
   };
   
 
-const ProductManagementPage = (props:Props) => {
-    const [data, setData] = useState<IProduct[]>(props.products);
-
+const ProductManagementPage = ({products, onRemove}:Props) => {
+    // const [data, setData] = useState<IProduct[]>(props.products);
+  // console.log(products);
+  // return
     const {
         token: { colorBgContainer },
       } = theme.useToken();
     
-    const { id } = useParams();
-
-    const datas = props.products.map((product:any) => {
-        return {
-            key: product.id,
-            name: product.name,
-            price: product.price,
-            image: product.image,
-            description: product.description,
-            categoryId: product.categoryId,
-        };
-    });
-    interface DataType {
-        key: string;
-        name: string;
-        price: number;
-        image: File;
-        description: string;
-        categoryId: number;
-        tags: string[];
-    }
-    const removeProduct = (id:any) => {
-        props.onRemove(id);
-        setData(data.filter((product) => product.id !== id));
-    };
-
-    const MyButton = ({ productId }: { productId: number }) => {
-      return (
-        <Link to={`/admin/products/${productId}/update`}>
-          <Button type="primary" style={{ backgroundColor: '#2F83E7' }}>Update</Button>
-        </Link>
-      );
-    }
-      const columns: ColumnsType<DataType> = [
+      const columns: ColumnsType<IProduct> = [
         {
             title: "Product name",
             dataIndex: "name",
@@ -93,10 +61,13 @@ const ProductManagementPage = (props:Props) => {
             key: "action",
             render: (record) => (
                 <Space size="middle">
-                    <Button type="primary" danger onClick={() => removeProduct(record.key)}>
+                    <Button type="primary" onClick={() => onRemove(record._id)}>
                         Remove
                     </Button>
-                    <MyButton productId={record.key} /> 
+                    <Button type="primary">
+                        <Link to={`/admin/products/${record._id}/update`}>update</Link>
+                    </Button>
+                    {/* <MyButton productId={record.id} />  */}
                 </Space>
                 
             ),
@@ -140,8 +111,9 @@ const ProductManagementPage = (props:Props) => {
               <div style={{ padding: 24, minHeight: 360, background: colorBgContainer }}>
                     <Button type="primary" ghost style={{margin:'20px'}}>
                         <Link to ={'/admin/products/add'}>Thêm Sản Phẩm</Link>
+                        
                     </Button>
-                <Table columns={columns} dataSource={datas} />
+                <Table columns={columns} dataSource={products} />
               </div>
             </Content>
             <Footer style={{ textAlign: 'center' }}>Ant Design ©2023 Created by Ant UED</Footer>

@@ -8,6 +8,7 @@ import { Card, Col, Row } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
 import { Link } from "react-router-dom";
 import axios from 'axios';
+import { signin } from "../../api/users";
 
 
 
@@ -17,64 +18,27 @@ interface ILogin {
 }
 
 const description = 'This is a description.';
-const items = [
-  {
-    title: 'Finished',
-    description,
-  },
-  {
-    title: 'In Progress',
-    description,
-  },
-  {
-    title: 'Waiting',
-    description,
-  },
-];
-const { Meta } = Card;
-const data = [
-  {
-    title: 'Title 1',
-  },
-  {
-    title: 'Title 2',
-  },
-  {
-    title: 'Title 3',
-  },
-  {
-    title: 'Title 4',
-  },
-];
+
 const Login = () => {
   
   const navigate = useNavigate();
-
-  const onFinish = async (values: ILogin) => {
-    const res = await fetch('http://localhost:3000/users');
-    const data = await res.json();
-
-    const user = data.find(
-      (user: { email: string; password: string }) =>
-        user.email === values.email && user.password === values.password
-    );
-
-    if (user) {
-      localStorage.setItem('user', JSON.stringify(user));
-      message.success('Đăng nhập thành công');
-      navigate('/admin/dash');
-    } else {
-      message.error('Đăng nhập thất bại');
+  const onSubmit = async (input: any) => {
+    try {
+      const { data } = await signin(input);
+      localStorage.setItem('user', JSON.stringify(data));
+      localStorage.setItem('users', JSON.stringify(data.accessToken));
+      navigate('/admin/products');
+    } catch (error) {
+     if(error = 400){
+      alert("Vui lòng kiểm tra lại tài khoản");
+     }
     }
-  };
-  function handleClick(e) {
-    console.log('click', e);
   }
   return (
     <div className="appHeader">
       <Menu
         className="appMenu"
-        onClick={handleClick}
+
         mode="horizontal"
         items={[
           {
@@ -107,7 +71,7 @@ const Login = () => {
 
 <div style={{ margin: 'auto', maxWidth: '400px',marginTop:"50px" }}>
       <h1 style={{textAlign:"center",}}>Login</h1>
-      <Form name="normal_login" className="login-form" onFinish={onFinish}>
+      <Form name="normal_login" className="login-form" onFinish={onSubmit}>
         <Form.Item
           name="email"
           rules={[{ required: true, message: 'Please input your Email!' }]}

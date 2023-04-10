@@ -65,10 +65,16 @@
       "id": 1
     },
     {
-      "email": "sonlvph20306@fpt.edu.vn",
-      "password": "Sonqua2002",
-      "confirmPassword": "Sonqua2002",
+      "email": "sonbg@gmail.com",
+      "password": "      ",
+      "confirmPassword": "      ",
       "id": 2
+    },
+    {
+      "email": "admin@gmail.com",
+      "password": "123123",
+      "confirmPassword": "123123",
+      "id": 3
     }
   ]
 }

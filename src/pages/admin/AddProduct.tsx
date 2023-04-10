@@ -8,22 +8,14 @@ import type { UploadProps } from 'antd';
 import { Upload } from 'antd';
 
 const { Header, Content, Footer, Sider } = Layout;
-
-const AddProductPage = (props:any) => {
+type AddProductPagePops = {
+  onAdd: Function,
+}
+const AddProductPage = ({onAdd}:AddProductPagePops) => {
   const {
     token: { colorBgContainer },
   } = theme.useToken();
 
-
-  const onFinish = (values: any) => {
-    props.onAdd({
-        name: values.name,
-        price: values.price,
-        image: values.image, // chú ý đưa giá trị trường tải ảnh vào đối tượng data
-        description: values.description,
-      });
-
-};
 
 const onFinishFailed = (errorInfo: any) => {
     console.log('Failed:', errorInfo);
@@ -76,7 +68,7 @@ const onFinishFailed = (errorInfo: any) => {
                 wrapperCol={{ span: 16 }}
                 style={{ maxWidth: 800, margin: '0 auto' }}
                 initialValues={{ remember: true }}
-                onFinish={onFinish}
+                onFinish={onAdd}
                 onFinishFailed={onFinishFailed}
                 autoComplete="off"
             >
@@ -98,20 +90,24 @@ const onFinishFailed = (errorInfo: any) => {
                 </Form.Item>
 
                 <Form.Item
-                
-                    label="Image"
+                    label="image"
                     name="image"
-                    rules={[{ required: true, message: 'Bạn chưa thêm ảnh sản phẩm!!' }]}
+                    rules={[{ required: true, message: 'Bạn chưa nhập image sản phẩm!!' }]}
                 >
-                    <Upload >
-                        <Button icon={<UploadOutlined />}>Upload</Button>
-                    </Upload>
+                    <Input />
                 </Form.Item>
 
                 <Form.Item
                     label="Description"
                     name="description"
                     rules={[{ required: true, message: 'Bạn chưa nhập Description sản phẩm!!' }]}
+                >
+                    <Input />
+                </Form.Item>
+                <Form.Item
+                    label="categoryId"
+                    name="categoryId"
+                    rules={[{ required: true, message: 'Bạn chưa nhập categoryId sản phẩm!!' }]}
                 >
                     <Input />
                 </Form.Item>
