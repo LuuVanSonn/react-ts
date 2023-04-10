@@ -74,7 +74,11 @@ const UpdateProductPage = (props:any) => {
               <Menu.Item>
               <Link to ={'/admin'}>Dashboard</Link>
             </Menu.Item>
+            
             <Menu.Item>
+                <Link to={'/admin/category'}>Category</Link>
+              </Menu.Item>
+              <Menu.Item>
               <Link to ={'/admin/products'}>Products</Link>
             </Menu.Item>
             </Menu>

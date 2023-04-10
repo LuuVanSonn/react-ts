@@ -9,7 +9,7 @@ import { Upload } from 'antd';
 
 const { Header, Content, Footer, Sider } = Layout;
 
-const AddProductPage = (props:any) => {
+const AddCategory = (props:any) => {
   const {
     token: { colorBgContainer },
   } = theme.useToken();
@@ -18,9 +18,7 @@ const AddProductPage = (props:any) => {
   const onFinish = (values: any) => {
     props.onAdd({
         name: values.name,
-        price: values.price,
-        image: values.image, // chú ý đưa giá trị trường tải ảnh vào đối tượng data
-        description: values.description,
+        
       });
 
 };
@@ -59,10 +57,10 @@ const onFinishFailed = (errorInfo: any) => {
                 <Link to={'/admin/dash'}>Dashboard</Link>
               </Menu.Item>
               <Menu.Item>
-                <Link to={'/admin/products'}>Products</Link>
-              </Menu.Item>
+              <Link to ={'/admin/category'}>Category</Link>
+            </Menu.Item>
               <Menu.Item>
-                <Link to={'/admin/category'}>Category</Link>
+                <Link to={'/admin/products'}>Products</Link>
               </Menu.Item>
         </Menu>
       </Sider>
@@ -89,36 +87,9 @@ const onFinishFailed = (errorInfo: any) => {
                     <Input />
                 </Form.Item>
 
-                <Form.Item
-                    label="Price"
-                    name="price"
-                    rules={[{ required: true, message: 'Bạn chưa nhập Price sản phẩm!!' }]}
-                >
-                    <Input />
-                </Form.Item>
-
-                <Form.Item
-                
-                    label="Image"
-                    name="image"
-                    rules={[{ required: true, message: 'Bạn chưa thêm ảnh sản phẩm!!' }]}
-                >
-                    <Upload >
-                        <Button icon={<UploadOutlined />}>Upload</Button>
-                    </Upload>
-                </Form.Item>
-
-                <Form.Item
-                    label="Description"
-                    name="description"
-                    rules={[{ required: true, message: 'Bạn chưa nhập Description sản phẩm!!' }]}
-                >
-                    <Input />
-                </Form.Item>
-
                 <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
                     <Button type="primary" htmlType="submit">
-                        Add New Product
+                        Add New Category
                     </Button>
                 </Form.Item>
             </Form>
@@ -130,4 +101,4 @@ const onFinishFailed = (errorInfo: any) => {
   );
 };
 
-export default AddProductPage
+export default AddCategory

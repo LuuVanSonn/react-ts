@@ -105,17 +105,18 @@ const ProductPage = (props: Props) => {
     <Col span={18} push={6}>
     <div style={{ padding: "5px",textAlign:"center" }}>
             <Divider style={{fontSize:"25px"}}>Sản Phẩm Mới</Divider>
-              <Row gutter={[14, 14]}>
+            <Row gutter={[16, 16]}>
                 {data.map((item) => (
                   <Col key={item.id} span={6}>
                     <Card
                       hoverable
-                      style={{ width: 190 }}
-                      cover={<Image src={item.image} width={140} height={100} />}
+                      style={{ width: 240 }}
+                      cover={<Image src={item.image} width={240} height={200} />}
                     >
-                      <Card.Meta title={item.name} description={<span style={{ color: 'red', justifyItems: "center", marginTop: "10px", }}>{item.price} ₫</span>} />
+                      
                       <Link to={`/products/${item.id}`}>
-                        <Button style={{marginTop:"10px",}}>Chi tiết</Button>
+                      <Card.Meta title={item.name} description={<span style={{ color: 'red', justifyItems: "center", marginTop: "10px", }}>{item.price} ₫</span>} />
+
                       </Link>
                     </Card>
                   </Col>
@@ -139,39 +140,38 @@ const ProductPage = (props: Props) => {
     </Col>
   </Row>
    </div>
-    
-    <div className="footer" style={{ marginLeft:"100px" }}>
-      <Row>
-        <Col span={6}>
-          <h2>ABOUT US</h2>
-          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim</p>
-        </Col>
-        <Col span={6}>
-          <h2>INFORMATION</h2>
-          <p>About us</p>
-          <p>Delivery Information</p>
-          <p>Terms & Condition</p>
-          <p>Privacy & Policy</p>
-          <p>Manufactures</p>
-        </Col>
-        <Col span={6}>
-          <h2>MY ACCOUNT</h2>
-          <p>My Cart</p>
-          <p>Login</p>
-          <p>Wishlist</p>
-          <p>Checkout</p>
-        </Col>
-        <Col span={6}>
-          <h2>OUR SERVICE</h2>
-          <p>My Account</p>
-          <p>My Cart</p>
-          <p>Login</p>
-          <p>Wishlist</p>
-          <p>Checkout</p>
+   <div className="footer" style={{margin:"0px 0px 50px 0px", backgroundColor:"#111111",color:"#ffffff",height:"500px" }}>
+    <Row>
+      <Col span={6}>
+        <h2 style={{marginTop:"50px",marginLeft:"100px"}}>ABOUT US</h2>
+        <p style={{marginTop:"20px",marginLeft:"100px"}}>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim</p>
+      </Col>
+      <Col span={6}>
+        <h2 style={{marginTop:"50px",marginLeft:"100px"}}>INFORMATION</h2>
+        <p style={{marginTop:"20px",marginLeft:"100px"}}>About us</p>
+        <p style={{marginTop:"20px",marginLeft:"100px"}}>Delivery Information</p>
+        <p style={{marginTop:"20px",marginLeft:"100px"}}>Terms & Condition</p>
+        <p style={{marginTop:"20px",marginLeft:"100px"}}>Privacy & Policy</p>
+        <p style={{marginTop:"20px",marginLeft:"100px"}}>Manufactures</p>
+      </Col>
+      <Col span={6}>
+        <h2 style={{marginTop:"50px",marginLeft:"100px"}}>MY ACCOUNT</h2>
+        <p style={{marginTop:"20px",marginLeft:"100px"}}>My Cart</p>
+        <p style={{marginTop:"20px",marginLeft:"100px"}}>Login</p>
+        <p style={{marginTop:"20px",marginLeft:"100px"}}>Wishlist</p>
+        <p style={{marginTop:"20px",marginLeft:"100px"}}>Checkout</p>
+      </Col>
+      <Col span={6}>
+        <h2 style={{marginTop:"50px",marginLeft:"100px"}}>OUR SERVICE</h2>
+        <p style={{marginTop:"20px",marginLeft:"100px"}}>My Account</p>
+        <p style={{marginTop:"20px",marginLeft:"100px"}}>My Cart</p>
+        <p style={{marginTop:"20px",marginLeft:"100px"}}>Login</p>
+        <p style={{marginTop:"20px",marginLeft:"100px"}}>Wishlist</p>
+        <p style={{marginTop:"20px",marginLeft:"100px"}}>Checkout</p>
 
-        </Col>
-      </Row>
-      </div>
+      </Col>
+    </Row>
+    </div>
     </div>
   );
 }

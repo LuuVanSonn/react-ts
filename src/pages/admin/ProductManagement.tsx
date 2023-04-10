@@ -123,9 +123,13 @@ const ProductManagementPage = (props:Props) => {
               
               >
               <Menu.Item>
-              <Link to ={'/admin'}>Dashboard</Link>
+              <Link to ={'/admin/dash'}>Dashboard</Link>
             </Menu.Item>
+           
             <Menu.Item>
+                <Link to={'/admin/category'}>Category</Link>
+              </Menu.Item>
+              <Menu.Item>
               <Link to ={'/admin/products'}>Products</Link>
             </Menu.Item>
             </Menu>

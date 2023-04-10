@@ -14,6 +14,7 @@ import UpdateProductPage from './pages/admin/UpdateProduct'
 import DashboardPage from './pages/admin/Dashboard'
 import RegisterForm from './pages/admin/RegisterForm'
 import LoginForm from './pages/admin/LoginForm'
+import AddCategory from './pages/admin/Category'
 
 
 function App() {
@@ -43,7 +44,8 @@ function App() {
         <Route path='/admin'>
           <Route index element={<LoginForm />} />
           <Route path='register' element={<RegisterForm />} />
-          <Route path='DashboardPage' element={<DashboardPage />} />
+          <Route path='dash' element={<DashboardPage />} />
+          <Route path='category' element={<AddCategory />} />
         <Route path='products'>
             <Route index element={<ProductManagementPage products={products} onRemove={onHandleRemove} />} />
             <Route path='add' element={<AddProductPage onAdd={onHandleAdd} />} />
